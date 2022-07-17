@@ -1,0 +1,12 @@
+.hero {
+  background-image: url(../src/assets/hero.png);
+  background-size: cover;
+  background-position: 30%;
+  height: 90vh;
+}
+@media screen and (max-width: 480px) {
+  .hero {
+    position: relative;
+    height: 60vh;
+  }
+}
