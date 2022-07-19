@@ -10,7 +10,7 @@
 
 -   [x] Each section of the homepage must be a separate react component.
 -   [x] Develop using Typescript
--   [x]Use tailwindcss(preferrable)
+-   [x] Use tailwindcss(preferrable)
 -   [x] No hardcoding of text in react app. All the content (text and images) must be coming from a Headless CMS (Contentful Api)
 -   [x] Create Typography components for H1, H2, Paragraph
 -   [x] Use Storybook for 3 UI components
