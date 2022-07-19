@@ -14,9 +14,9 @@
 -   [x] No hardcoding of text in react app. All the content (text and images) must be coming from a Headless CMS (Contentful Api)
 -   [x] Create Typography components for H1, H2, Paragraph
 -   [x] Use Storybook for 3 UI components
-        Button - Primary and secondary
-        Typography - H1, H2, Paragraph
-        Sub component of the Why Choose us section with icon, title and paragraph.
+        - Button - Primary and secondary
+        - Typography - H1, H2, Paragraph
+        - Sub component of the Why Choose us section with icon, title and paragraph.
 -   [x] Prettier and Linter configuration
 -   [x] Host the page on Netlify,
 
