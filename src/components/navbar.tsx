@@ -1,86 +1,127 @@
-import React, { useState } from "react";
-import { AiOutlineDown } from "react-icons/ai";
+import React, { useState, useEffect, useCallback } from 'react';
+import { client } from '../client';
 
 function Navbar() {
-  const [navbar, setNavbar] = useState(false);
+    const [navbar, setNavbar] = useState<boolean>(false);
+    const [isNavbarLoading, setIsNavbarLoading] = useState<boolean>(false);
+    const [navbarTitles, setNavbarTitles] = useState<any[]>([]);
 
-  return (
-    <nav className="w-full bg-white shadow ">
-      <div className="justify-between py-4 px-5 mx-auto lg:max-w-7xl md:items-center md:flex md:px-0">
-        <div>
-          <div className="flex items-center justify-between py-3 md:py-5 md:block">
-            <div className="md:hidden">
-              <button
-                className="p-2  rounded-md outline-none focus:bo focus:border"
-                onClick={() => setNavbar(!navbar)}
-              >
-                {navbar ? (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6 fill-primary "
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                ) : (
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="#E6692E"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4 6h16M4 12h16M4 18h16"
-                    />
-                  </svg>
-                )}
-              </button>
+    const cleanupNewsData = useCallback((rawData) => {
+        const cleanData = rawData.map((navbar) => {
+            const { sys, fields } = navbar;
+            const { id } = sys;
+            const NavbarTitle = fields.title;
+            const showIcon = fields.showIcon;
+            const icon = fields.downArrow.fields.file.url;
+            const updatedNavbar = {
+                id,
+                NavbarTitle,
+                showIcon,
+                icon
+            };
+            return updatedNavbar;
+        });
+        setNavbarTitles(cleanData);
+    }, []);
+
+    const getNavbarData = useCallback(async () => {
+        setIsNavbarLoading(true);
+        try {
+            const response = await client.getEntries({
+                content_type: 'navbar'
+            });
+            const responseData = response.items;
+            if (responseData) {
+                cleanupNewsData(responseData);
+            } else {
+                setNavbarTitles([]);
+            }
+            setIsNavbarLoading(false);
+        } catch (error) {
+            console.log(error);
+            setIsNavbarLoading(false);
+        }
+    }, [cleanupNewsData]);
+
+    useEffect(() => {
+        getNavbarData();
+    }, [getNavbarData]);
+
+    return (
+        <nav className="w-full bg-white shadow ">
+            <div className="justify-between py-4 px-5 mx-auto lg:max-w-7xl md:items-center md:flex md:px-0">
+                <div>
+                    <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                        <div className="md:hidden">
+                            <button
+                                className="p-2  rounded-md outline-none focus:bo focus:border"
+                                onClick={() => setNavbar(!navbar)}
+                            >
+                                {navbar ? (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6 fill-primary "
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                ) : (
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="w-6 h-6"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="#E6692E"
+                                        strokeWidth={2}
+                                    >
+                                        <path
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                            d="M4 6h16M4 12h16M4 18h16"
+                                        />
+                                    </svg>
+                                )}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+                            navbar ? 'block' : 'hidden'
+                        }`}
+                    >
+                        <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 text-base ">
+                            {navbarTitles.map((items) => {
+                                return (
+                                    <li
+                                        className=" hover:text-blue-600 md:flex flex-row items-center "
+                                        key={items.id}
+                                    >
+                                        <a href="www.google.com">
+                                            {items.NavbarTitle}
+                                        </a>
+                                        {items.showIcon && (
+                                            <img
+                                                className="ml-1 mt-0.5 hidden md:block"
+                                                src={items.icon}
+                                                alt="news imagesss"
+                                            />
+                                        )}
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div>
-          <div
-            className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-              navbar ? "block" : "hidden"
-            }`}
-          >
-            <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0 text-base ">
-              <li className=" hover:text-blue-600 md:flex flex-row items-center ">
-                <a href="www.google.com">About</a>
-                <AiOutlineDown className="ml-1 mt-0.5 hidden md:block " />
-              </li>
-              <li className=" hover:text-blue-600 md:flex flex-row items-center ">
-                <a href="www.google.com">Job Search</a>
-              </li>
-              <li className=" hover:text-blue-600 md:flex flex-row items-center">
-                <a href="www.google.com">Candidates</a>
-                <AiOutlineDown className="ml-1 mt-0.5" />
-              </li>
-              <li className=" hover:text-blue-600 md:flex flex-row items-center">
-                <a href="www.google.com">Employers</a>
-                <AiOutlineDown className="ml-1 mt-0.5" />
-              </li>
-              <li className=" hover:text-blue-600 md:flex flex-row items-center">
-                <a href="www.google.com">Latest News</a>
-              </li>
-              <li className=" hover:text-blue-600 md:flex flex-row items-center">
-                <a href="www.google.com">Contact </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
+        </nav>
+    );
 }
 
 export default Navbar;
