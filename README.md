@@ -32,7 +32,7 @@ npm install
 npm start
 ```
 
-##Assignment Website Details
+## Assignment Website Details
 
 -   Storybook component : [techwondo_components](https://www.npmjs.com/package/techwondoe_components)
 -   Netlify web link : [Teachwondo App](https://techwondoeweb.netlify.app/)
