@@ -124,13 +124,8 @@ const Footer = () => {
                         {navbarTitles.map((items) => {
                             return (
                                 <nav className="list-none mb-10">
-                                    <li>
-                                        <a
-                                            href="www.google.com"
-                                            className="text-gray-600 hover:text-gray-800"
-                                        >
-                                            {items.nav4}
-                                        </a>
+                                    <li className="text-gray-600 hover:text-gray-800">
+                                        {items.nav4}
                                     </li>
                                 </nav>
                             );
