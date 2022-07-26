@@ -57,7 +57,7 @@ const WhyChooseUs = () => {
                 <div className="flex flex-wrap justify-center lg:px-30 md:px-20 sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
                     {cardTitles.map((items) => {
                         return (
-                            <div className="p-4 md:w-1/3 flex" key={items.id}>
+                            <div className="p-4 md:w-1/2 flex" key={items.id}>
                                 <Card paragraph="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim vulputate aliquam arcu .">
                                     {items.cardTitle}
                                 </Card>

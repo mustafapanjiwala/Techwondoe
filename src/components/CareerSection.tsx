@@ -50,7 +50,10 @@ const CareerSection = () => {
         <section className="bg-primary body-font">
             {navbarTitles.map((items) => {
                 return (
-                    <div className="container px-5 py-24 mx-auto">
+                    <div
+                        className="container px-5 py-24 mx-auto"
+                        key={items.id}
+                    >
                         <div className="text-center mb-10">
                             <h1 className="sm:text-3xl text-2xl font-medium text-center title-font text-white mb-4">
                                 {items.navbarTitle}

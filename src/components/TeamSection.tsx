@@ -54,7 +54,10 @@ const TeamSection = () => {
         <>
             {navbarTitles.map((items) => {
                 return (
-                    <section className="relative bg-team text-gray-600 body-font">
+                    <section
+                        className="relative bg-team text-gray-600 body-font"
+                        key={items.id}
+                    >
                         <img
                             className="absolute -top-14 hidden lg:block"
                             alt="hero_ribbon"

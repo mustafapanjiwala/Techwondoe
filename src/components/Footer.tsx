@@ -55,7 +55,10 @@ const Footer = () => {
             <div className="container px-10 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
                 {navbarTitles.map((items) => {
                     return (
-                        <div className=" flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+                        <div
+                            className=" flex-shrink-0 md:mx-0 mx-auto text-center md:text-left"
+                            key={items.id}
+                        >
                             <span className="inline-flex lg:ml-10 sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
                                 <a
                                     href="www.google.com"
@@ -72,7 +75,7 @@ const Footer = () => {
                     <div className="lg:w-1/4 md:w-1/2 w-full px-4 flex flex-col justify-between items-center">
                         {navbarTitles.map((items) => {
                             return (
-                                <nav className="list-none mb-10">
+                                <nav className="list-none mb-10" key={items.id}>
                                     <li>
                                         <a
                                             href="www.google.com"
@@ -89,7 +92,7 @@ const Footer = () => {
                     <div className="lg:w-1/4 md:w-1/2 w-full px-4">
                         {navbarTitles.map((items) => {
                             return (
-                                <nav className="list-none mb-10">
+                                <nav className="list-none mb-10" key={items.id}>
                                     <li>
                                         <a
                                             href="www.google.com"
@@ -106,7 +109,7 @@ const Footer = () => {
                     <div className="lg:w-1/4 md:w-1/2 w-full px-4">
                         {navbarTitles.map((items) => {
                             return (
-                                <nav className="list-none mb-10">
+                                <nav className="list-none mb-10" key={items.id}>
                                     <li>
                                         <a
                                             href="www.google.com"
@@ -123,7 +126,7 @@ const Footer = () => {
                     <div className="lg:w-1/4 md:w-1/2 w-full px-4">
                         {navbarTitles.map((items) => {
                             return (
-                                <nav className="list-none mb-10">
+                                <nav className="list-none mb-10" key={items.id}>
                                     <li className="text-gray-600 hover:text-gray-800">
                                         {items.nav4}
                                     </li>
